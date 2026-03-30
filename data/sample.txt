@@ -1,0 +1,1 @@
+This system uses FastAPI, Kafka, and Spark for scalable data pipelines.
