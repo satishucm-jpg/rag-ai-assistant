@@ -5,7 +5,7 @@ An AI-powered application that can analyze GitHub repositories and answer techni
 ## 🌍 Live Demo
 
 - Backend API: https://rag-ai-assistant-81gg.onrender.com/docs
-- Frontend UI: https://rag-ai-frontend.onrender.com
+- Frontend UI: https://rag-ai-assistant-1-srx6.onrender.com/)
 
 🧠 Features
 
