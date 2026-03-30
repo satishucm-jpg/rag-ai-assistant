@@ -1,24 +1,21 @@
-from langchain_community.vectorstores.faiss import FAISS
-from langchain_community.embeddings import HuggingFaceEmbeddings
+import os
 
-VECTOR_PATH = "vectorstore"
+VECTORSTORE = []
 
 def create_vectorstore(chunks):
-    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-    vectorstore = FAISS.from_documents(chunks, embeddings)
-    vectorstore.save_local(VECTOR_PATH)
-    return vectorstore
+    global VECTORSTORE
+    VECTORSTORE = chunks
 
 
-def load_vectorstore():
-    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-    return FAISS.load_local(
-        VECTOR_PATH,
-        embeddings,
-        allow_dangerous_deserialization=True
-    )
+def retrieve_docs(query):
+    if not VECTORSTORE:
+        return []
 
+    # simple keyword search
+    results = []
+    for doc in VECTORSTORE:
+        if query.lower() in doc.page_content.lower():
+            results.append(doc)
 
-def retrieve_docs(query, k=3):
-    vectorstore = load_vectorstore()
-    return vectorstore.similarity_search(query, k=k)
+    # fallback → return first few docs
+    return results[:3] if results else VECTORSTORE[:3]
